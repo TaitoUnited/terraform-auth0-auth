@@ -32,6 +32,14 @@ auth:
         - https://my-project-dev.mydomain.com/admin
     - name: server
       type: non_interactive
+  connections:
+    - name: auth0-database
+      strategy: auth0
+      passwordPolicy: good
+      bruteForceProtection: true
+      clients:
+        - client
+        - server
 ```
 
 Similar provider agnostic YAML format is used also by the following modules:

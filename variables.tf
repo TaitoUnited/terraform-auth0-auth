@@ -52,6 +52,19 @@ variable "configuration" {
       isTokenEndpointIpHeaderTrusted = optional(bool)
       tokenEndpointAuthMethod = optional(string)
     }))
+
+    connections = list(object({
+      name = string
+      strategy = string
+      isDomainConnection = optional(bool)
+      clients = optional(list(string))
+      realms = optional(list(string))
+      options = optional(object({
+        passwordPolicy = optional(string)
+        bruteForceProtection = optional(bool)
+        // TODO: more options
+      }))
+    }))
   })
   description = "Configuration as JSON (see README.md). You can read values from a YAML file with yamldecode()."
 }

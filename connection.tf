@@ -14,14 +14,23 @@
  * limitations under the License.
  */
 
-locals {
-  clientsByName = {
-    for client in var.configuration.clients:
-    client.name => client
-  }
+resource "auth0_connection" "connection" {
+  for_each = {for item in local.connectionsByName: item.name => item}
 
-  connectionsByName = {
-    for connection in var.configuration.connections:
-    connection.name => connection
+  name = each.value.name
+  strategy = each.value.strategy
+  is_domain_connection = each.value.isDomainConnection
+
+  enabled_clients = [
+    for name in each.value.clients:
+    auth0_client.client[name].client_id
+    // TODO: add also auth0 terraform provider client?
+  ]
+
+  realms = each.value.realms
+
+  options {
+    password_policy = each.value.passwordPolicy
+    brute_force_protection = each.value.bruteForceProtection
   }
 }
