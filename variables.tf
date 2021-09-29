@@ -16,6 +16,8 @@
 
 variable "configuration" {
   type = object({
+
+    // See: https://registry.terraform.io/providers/alexkappa/auth0/latest/docs/resources/client
     clients = list(object({
 
       // Provider agnostic options (TODO: add more)
@@ -53,6 +55,7 @@ variable "configuration" {
       tokenEndpointAuthMethod = optional(string)
     }))
 
+    // See: https://registry.terraform.io/providers/alexkappa/auth0/latest/docs/resources/connection
     connections = list(object({
       name = string
       strategy = string

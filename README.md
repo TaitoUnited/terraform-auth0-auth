@@ -21,6 +21,7 @@ module "auth" {
 Example YAML:
 
 ```
+# See variables.tf for more options
 auth:
   clients:
     - name: client
@@ -35,8 +36,9 @@ auth:
   connections:
     - name: auth0-database
       strategy: auth0
-      passwordPolicy: good
-      bruteForceProtection: true
+      options:
+        passwordPolicy: good
+        bruteForceProtection: true
       clients:
         - client
         - server

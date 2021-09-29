@@ -32,11 +32,11 @@ resource "auth0_client" "client" {
   web_origins = each.value.webOrigins
 
   dynamic "jwt_configuration" {
-    for_each = each.value.jsonWebTokens != null ? [ each.value.jsonWebTokens ] : []
+    for_each = each.value.jsonWebTokens != null ? each.value.jsonWebTokens : []
     content {
-      lifetime_in_seconds = each.value.lifetimeInSeconds
-      secret_encoded = each.value.secretEncoded
-      alg = each.value.alg
+      lifetime_in_seconds = jwt_configuration.value.lifetimeInSeconds
+      secret_encoded = jwt_configuration.value.secretEncoded
+      alg = jwt_configuration.value.alg
       /* TODO: scopes
       scopes = {
         foo = "bar"
@@ -46,15 +46,15 @@ resource "auth0_client" "client" {
   }
 
   dynamic "refresh_token" {
-    for_each = each.value.refreshTokens != null ? [ each.value.refreshTokens ] : []
+    for_each = each.value.refreshTokens != null ? each.value.refreshTokens : []
     content {
-      rotation_type = each.value.rotationType
-      expiration_type = each.value.expirationType
-      leeway = each.value.leeway
-      token_lifetime = each.value.tokenLifetime
-      infinite_idle_token_lifetime = each.value.infiniteIdleTokenLifetime
-      infinite_token_lifetime      = each.value.infiniteTokenLifetime
-      idle_token_lifetime          = each.value.idleTokenLifetime
+      rotation_type = refresh_token.value.rotationType
+      expiration_type = refresh_token.value.expirationType
+      leeway = refresh_token.value.leeway
+      token_lifetime = refresh_token.value.tokenLifetime
+      infinite_idle_token_lifetime = refresh_token.value.infiniteIdleTokenLifetime
+      infinite_token_lifetime      = refresh_token.value.infiniteTokenLifetime
+      idle_token_lifetime          = refresh_token.value.idleTokenLifetime
     }
   }
 

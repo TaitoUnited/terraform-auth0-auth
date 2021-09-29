@@ -29,8 +29,11 @@ resource "auth0_connection" "connection" {
 
   realms = each.value.realms
 
-  options {
-    password_policy = each.value.passwordPolicy
-    brute_force_protection = each.value.bruteForceProtection
+  dynamic "options" {
+    for_each = each.value.options != null ? [ each.value.options ] : []
+    content {
+      password_policy = options.value.passwordPolicy
+      brute_force_protection = options.value.bruteForceProtection
+    }
   }
 }
