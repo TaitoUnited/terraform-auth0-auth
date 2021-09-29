@@ -16,7 +16,7 @@
 
 variable "configuration" {
   type = object({
-    applications = list(object({
+    clients = list(object({
 
       // Provider agnostic options (TODO: add more)
       name = string

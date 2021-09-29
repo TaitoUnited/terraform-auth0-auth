@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 
-provider "auth0" {
-}
-
 locals {
   clientsByName = {
-    for client in var.configuration.applications:
+    for client in var.configuration.clients:
     client.name => client
   }
 }
