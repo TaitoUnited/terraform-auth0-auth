@@ -23,6 +23,12 @@ Example YAML:
 ```
 # See variables.tf for more options
 auth:
+  tenant:
+    name: IAQ
+    logoUrl:
+    supportEmail: support@mydomain.com
+    supportUrl:
+
   clients:
     - name: client
       type: spa
@@ -33,6 +39,7 @@ auth:
         - https://my-project-dev.mydomain.com/admin
     - name: server
       type: non_interactive
+
   connections:
     - name: auth0-database
       strategy: auth0

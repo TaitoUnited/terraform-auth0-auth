@@ -17,6 +17,16 @@
 variable "configuration" {
   type = object({
 
+    // See: https://registry.terraform.io/providers/alexkappa/auth0/latest/docs/resources/tenant
+    tenant = optional(object({
+      name = optional(string)
+      logoUrl = optional(string)
+      supportEmail = optional(string)
+      supportUrl = optional(string)
+
+      // TODO: more settings
+    }))
+
     // See: https://registry.terraform.io/providers/alexkappa/auth0/latest/docs/resources/client
     clients = list(object({
 

@@ -14,16 +14,11 @@
  * limitations under the License.
  */
 
-locals {
-  tenant = try(var.configuration.tenant, {})
-  
-  clientsByName = {
-    for client in var.configuration.clients:
-    client.name => client
-  }
+resource "auth0_tenant" "tenant" {
+  friendly_name = local.tenant.name
+  picture_url = local.tenant.logoUrl
+  support_email = local.tenant.supportEmail
+  support_url = local.tenant.supportUrl
 
-  connectionsByName = {
-    for connection in var.configuration.connections:
-    connection.name => connection
-  }
+  // TODO: more settings
 }
