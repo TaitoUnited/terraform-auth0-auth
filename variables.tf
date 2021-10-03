@@ -47,8 +47,8 @@ variable "configuration" {
 
       verificationLocation = optional(string)
       options = optional(map(string))
-      enforce_policies = optional(bool)
-      token_dialect = optional(string)
+      enforcePolicies = optional(bool)
+      tokenDialect = optional(string)
 
       skipConsentForVerifiableFirstPartyClients = optional(bool)
 

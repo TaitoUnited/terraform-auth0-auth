@@ -17,7 +17,9 @@
 locals {
   tenant = try(var.configuration.tenant, {})
 
-  customDomains = local.tenant.customDomains
+  customDomains = (
+    local.tenant.customDomains != null ? local.tenant.customDomains : []
+  )
 
   apisByName = {
     for api in var.configuration.apis:
@@ -32,7 +34,7 @@ locals {
   clientGrantsByKey = {
     for item in flatten([
       for client in var.configuration.clients: [
-        for grant in client.grants:
+        for grant in (client.grants != null ? client.grants : []):
         {
           key    = "${client.name}-${grant.audience}"
           client = client
