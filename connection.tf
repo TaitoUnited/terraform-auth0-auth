@@ -34,6 +34,7 @@ resource "auth0_connection" "connection" {
     content {
       password_policy = options.value.passwordPolicy
       brute_force_protection = options.value.bruteForceProtection
+      disable_signup = options.value.disableSignup
     }
   }
 }

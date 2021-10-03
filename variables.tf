@@ -17,16 +17,48 @@
 variable "configuration" {
   type = object({
 
+    // Tenant
     // See: https://registry.terraform.io/providers/alexkappa/auth0/latest/docs/resources/tenant
     tenant = optional(object({
       name = optional(string)
       logoUrl = optional(string)
       supportEmail = optional(string)
       supportUrl = optional(string)
+      customDomains = optional(list(object({
+        domain = string
+        type = optional(string)
+        verificationMethod = optional(string)
+      })))
 
       // TODO: more settings
     }))
 
+    // APIs
+    // See: https://registry.terraform.io/providers/alexkappa/auth0/latest/docs/resources/resource_server
+    apis = list(object({
+      name = string
+      identifier = string
+      signingAlg = optional(string)
+      signingSecret = optional(string)
+
+      allowOfflineAccess = optional(bool)
+      tokenLifetime = optional(number)
+      tokenLifetimeForWeb = optional(number)
+
+      verificationLocation = optional(string)
+      options = optional(map(string))
+      enforce_policies = optional(bool)
+      token_dialect = optional(string)
+
+      skipConsentForVerifiableFirstPartyClients = optional(bool)
+
+      scopes = optional(list(object({
+        value = string
+        description = optional(string)
+      })))
+    }))
+
+    // Clients
     // See: https://registry.terraform.io/providers/alexkappa/auth0/latest/docs/resources/client
     clients = list(object({
 
@@ -57,7 +89,12 @@ variable "configuration" {
         idleTokenLifetime = number
       })))
 
-      // Auth0 specigic options (TODO: add more)
+      grants = optional(list(object({
+        audience = string
+        scopes = optional(list(string))
+      })))
+
+      // Auth0 specific options (TODO: add more)
       grantTypes = optional(list(string))
       customLoginPageOn = optional(bool)
       isFirstParty = optional(bool)
@@ -65,6 +102,7 @@ variable "configuration" {
       tokenEndpointAuthMethod = optional(string)
     }))
 
+    // Connections
     // See: https://registry.terraform.io/providers/alexkappa/auth0/latest/docs/resources/connection
     connections = list(object({
       name = string
@@ -75,6 +113,7 @@ variable "configuration" {
       options = optional(object({
         passwordPolicy = optional(string)
         bruteForceProtection = optional(bool)
+        disableSignup = optional(bool)
         // TODO: more options
       }))
     }))
