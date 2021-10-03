@@ -33,6 +33,17 @@ variable "configuration" {
       // TODO: more settings
     }))
 
+    // Brand
+    // See: https://registry.terraform.io/providers/alexkappa/auth0/latest/docs/resources/branding
+    brand = optional(object({
+      faviconUrl = optional(string)
+      logoUrl = optional(string)
+      fontUrl = optional(string)
+      primaryColor = optional(string)
+      backgroundColor = optional(string)
+      loginPageHtml = optional(string)
+    }))
+
     // APIs
     // See: https://registry.terraform.io/providers/alexkappa/auth0/latest/docs/resources/resource_server
     apis = list(object({

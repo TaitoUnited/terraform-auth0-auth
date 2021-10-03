@@ -17,6 +17,8 @@
 locals {
   tenant = try(var.configuration.tenant, {})
 
+  brand = try(var.configuration.brand, {})
+
   customDomains = (
     local.tenant.customDomains != null ? local.tenant.customDomains : []
   )
