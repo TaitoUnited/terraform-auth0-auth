@@ -21,11 +21,16 @@ resource "auth0_connection" "connection" {
   strategy = each.value.strategy
   is_domain_connection = each.value.isDomainConnection
 
-  enabled_clients = [
-    for name in each.value.clients:
+  enabled_clients = flatten(concat([
+    for name in coalesce(each.value.clients, []):
     auth0_client.client[name].client_id
-    // TODO: add also auth0 terraform provider client?
-  ]
+  ], [
+    for client in local.clientsByName: (
+      contains(coalesce(client.connections, []), each.value.name)
+        ? [ auth0_client.client[client.name].client_id ]
+        : []
+    )
+  ]))
 
   realms = each.value.realms
 

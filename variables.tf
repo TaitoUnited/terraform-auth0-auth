@@ -114,6 +114,8 @@ variable "configuration" {
       isFirstParty = optional(bool)
       isTokenEndpointIpHeaderTrusted = optional(bool)
       tokenEndpointAuthMethod = optional(string)
+
+      connections = optional(list(string))
     }))
 
     // Connections

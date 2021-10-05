@@ -18,11 +18,8 @@ resource "auth0_branding" "brand" {
   favicon_url = local.brand.faviconUrl
   logo_url = local.brand.logoUrl
 
-  dynamic "font" {
-    for_each = local.brand.fontUrl != null ? [1] : []
-    content {
-      url = local.brand.fontUrl
-    }
+  font {
+    url = local.brand.fontUrl
   }
 
   colors {
