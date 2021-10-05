@@ -24,6 +24,9 @@ variable "configuration" {
       logoUrl = optional(string)
       supportEmail = optional(string)
       supportUrl = optional(string)
+      defaultAudience = optional(string)
+      defaultDirectory = optional(string)
+
       customDomains = optional(list(object({
         domain = string
         type = optional(string)

@@ -19,6 +19,8 @@ resource "auth0_tenant" "tenant" {
   picture_url = local.tenant.logoUrl
   support_email = local.tenant.supportEmail
   support_url = local.tenant.supportUrl
+  default_audience = local.tenant.defaultAudience
+  default_directory = local.tenant.defaultDirectory
 
   // TODO: more settings
 }
