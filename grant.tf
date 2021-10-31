@@ -15,9 +15,9 @@
  */
 
 resource "auth0_client_grant" "grant" {
-  for_each = {for item in local.clientGrantsByKey: item.key => item}
+  for_each  = local.clientGrantsByKey
 
-  client_id = auth0_client.client[each.value.client.name].client_id
+  client_id = auth0_client.client[each.value.client.id].client_id
   audience  = each.value.grant.audience
   scope     = each.value.grant.scopes
 }

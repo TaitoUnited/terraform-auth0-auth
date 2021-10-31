@@ -30,15 +30,15 @@ locals {
 
   clientsById = {
     for client in var.configuration.clients:
-    coalesce(client.id, client.name) => client
+    coalesce(client.id, client.name) => merge({ id: client.name }, client)
   }
 
   clientGrantsByKey = {
     for item in flatten([
-      for client in var.configuration.clients: [
+      for client in local.clientsById: [
         for grant in (client.grants != null ? client.grants : []):
         {
-          key    = "${client.name}-${grant.audience}"
+          key    = "${client.id}-${grant.audience}"
           client = client
           grant  = grant
         }
