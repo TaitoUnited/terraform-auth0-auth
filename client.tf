@@ -15,7 +15,7 @@
  */
 
 resource "auth0_client" "client" {
-  for_each = {for item in local.clientsByName: item.name => item}
+  for_each = local.clientsById
 
   name = each.value.name
   description = each.value.description

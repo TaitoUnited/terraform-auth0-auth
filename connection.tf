@@ -25,7 +25,7 @@ resource "auth0_connection" "connection" {
     for name in coalesce(each.value.clients, []):
     auth0_client.client[name].client_id
   ], [
-    for client in local.clientsByName: (
+    for client in local.clientsById: (
       contains(coalesce(client.connections, []), each.value.name)
         ? [ auth0_client.client[client.name].client_id ]
         : []

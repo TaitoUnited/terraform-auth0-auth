@@ -77,6 +77,7 @@ variable "configuration" {
     clients = list(object({
 
       // Provider agnostic options (TODO: add more)
+      id = optional(string)
       name = string
       description = optional(string)
       type = string

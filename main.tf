@@ -28,9 +28,9 @@ locals {
     api.name => api
   }
 
-  clientsByName = {
+  clientsById = {
     for client in var.configuration.clients:
-    client.name => client
+    coalesce(client.id, client.name) => client
   }
 
   clientGrantsByKey = {
